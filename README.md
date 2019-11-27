@@ -1,6 +1,6 @@
 # Laravel SMS
 
-Laravel SMS allows you to send SMS from your Laravel application using one of 10 sms providers in Nigeria, or your own sms provider.
+Laravel SMS allows you to send SMS from your Laravel application using one of over 10 sms providers, or your own sms provider.
 
 - [Laravel SMS](#laravel-sms)
     - [Installation](#installation)
@@ -114,27 +114,28 @@ $sms->text($message)->to(08135087966)->from('MyLaravel')->send();
 //MeboSms
 $send = send_sms($message, $to, $from, MeboSms::class);
 ```
-You can set the default SMS provider in `config/laravel-sms.php` e.g ` 'default' => \Djunehor\Sms\Concrete\SmartSmsSolutions::class,`, so you can use the helper function like this:
+The default SMS provider is Nexmo. You can set the default SMS provider in `config/laravel-sms.php` e.g ` 'default' => \Djunehor\Sms\Concrete\SmartSmsSolutions::class,`, so you can use the helper function like this:
 ```php
 $send = send_sms($message, $to);
+//$from is optional and is better set in the config
 ```
 
 ### Available SMS Providers
 |Provider|URL|Tested|
 |:--------- | :-----------------: | :------: |
-|AfricasTalking|https://build.at-labs.io/docs/sms%2Fsending|Yes |
-|BetaSms|https://login.betasms.com.ng/|Yes
-|BulkSmsNigeria|https://www.bulksmsnigeria.com/bulk-sms-api|Yes
-|GoldSms247|https://goldsms247.com/index.php/api|Yes
-|KudiSms|https://kudisms.net/api/|Yes
-|Mebosms|http://mebosms.com/api-sms|Yes
-|MultiTexter|https://web.multitexter.com/MultiTexter_HTTP_SMS_API%202.0.pdf|Yes
-|Nexmo|https://developer.nexmo.com/api/sms#send-an-sms|Yes
-|NigerianBulkSms|https://nigeriabulksms.com/sms-gateway-api/|Yes
-|RingCaptcha|https://my.ringcaptcha.com/docs/api|No
-|SmartSmsSolutions|https://docs.smartsmssolutions.com/docs/send-with-basic-route|Yes
-|SmsLive247|http://portal.smslive247.com/developer_api/http.aspx|No
-|XWireless|https://xwireless.net/cportal/knowledge-base/article/sms-3|No
+|Nexmo|https://developer.nexmo.com/api/sms#send-an-sms|Yes|
+|AfricasTalking|https://build.at-labs.io/docs/sms%2Fsending|Yes||
+|BetaSms|https://login.betasms.com.ng/|Yes|
+|MultiTexter|https://web.multitexter.com/MultiTexter_HTTP_SMS_API%202.0.pdf|Yes|
+|BulkSmsNigeria|https://www.bulksmsnigeria.com/bulk-sms-api|Yes|
+|GoldSms247|https://goldsms247.com/index.php/api|Yes|
+|KudiSms|https://kudisms.net/api/|Yes|
+|Mebosms|http://mebosms.com/api-sms|Yes|
+|NigerianBulkSms|https://nigeriabulksms.com/sms-gateway-api/|Yes|
+|SmartSmsSolutions|https://docs.smartsmssolutions.com/docs/send-with-basic-route|Yes|
+|RingCaptcha|https://my.ringcaptcha.com/docs/api|No|
+|SmsLive247|http://portal.smslive247.com/developer_api/http.aspx|No|
+|XWireless|https://xwireless.net/cportal/knowledge-base/article/sms-3|No|
 
 ### Creating custom SMS Provider
 - Create a class that extends `Djunehor\Sms\Concrete\Sms` class
