@@ -1,4 +1,5 @@
 <?php
+
 namespace Djunehor\Sms\Test;
 
 use Djunehor\Sms\Concrete\BetaSms;
@@ -15,7 +16,6 @@ class SmsTest extends TestCase
 
     public function testToSingle()
     {
-
         $number = '08092785634';
         $this->sms->to($number);
         $this->assertEquals([$number], $this->sms->getRecipients());
@@ -23,7 +23,6 @@ class SmsTest extends TestCase
 
     public function testToMultiple()
     {
-
         $this->sms->to('08092785634', '08022334455');
         $this->assertEquals(['08092785634', '08022334455'], $this->sms->getRecipients());
     }

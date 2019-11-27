@@ -3,10 +3,7 @@
 namespace Djunehor\Sms\Test;
 
 use Djunehor\Sms\SmsServiceProvider;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 use Orchestra\Testbench\Concerns\CreatesApplication;
 
 abstract class TestCase extends BaseTestCase
@@ -18,7 +15,6 @@ abstract class TestCase extends BaseTestCase
      *
      * @return array
      */
-
     protected function getPackageProviders($app)
     {
         return [
@@ -40,5 +36,4 @@ abstract class TestCase extends BaseTestCase
         $smsConfig = include_once __DIR__.'/../src/config/laravel-sms.php';
         $app['config']->set('laravel-sms', $smsConfig);
     }
-
 }

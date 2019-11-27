@@ -3,17 +3,15 @@
  * Created by PhpStorm.
  * User: djunehor
  * Date: 26/09/2018
- * Time: 3:47 PM
+ * Time: 3:47 PM.
  */
 
 namespace Djunehor\Sms\Contracts;
 
-
 use Djunehor\Sms\Concrete\Sms;
 
 /**
- * Interface SmsServiceInterface
- * @package Djunehor\Sms\Contracts
+ * Interface SmsServiceInterface.
  */
 interface SmsServiceInterface
 {
@@ -42,9 +40,8 @@ interface SmsServiceInterface
 
     /**
      * @return \Exception|null
-     *
      */
-    public function getException() : Sms ;
+    public function getException() : Sms;
 
     /**
      * @param null $text
