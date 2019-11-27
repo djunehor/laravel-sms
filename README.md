@@ -3,6 +3,7 @@
 [![Latest Stable Version](https://poser.pugx.org/djunehor/laravel-sms/v/stable)](https://packagist.org/packages/djunehor/laravel-sms)
 [![Total Downloads](https://poser.pugx.org/djunehor/laravel-sms/downloads)](https://packagist.org/packages/djunehor/laravel-sms)
 [![License](https://poser.pugx.org/djunehor/laravel-sms/license)](https://packagist.org/packages/djunehor/laravel-sms)
+[![StyleCI](https://github.styleci.io/repos/224398453/shield?branch=master)](https://github.styleci.io/repos/224398453)
 
 Laravel SMS allows you to send SMS from your Laravel application using one of over 10 sms providers, or your own sms provider.
 
