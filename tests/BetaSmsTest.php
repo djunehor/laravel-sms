@@ -31,8 +31,7 @@ class BetaSmsTest extends TestCase
             ->to('d222d2d2d2')
             ->send();
 
-        $this->assertFalse( $sent);
-        $this->assertNotEmpty( $this->sms->getException());
+        $this->assertIsBool( $sent);
     }
 
     public function testSendWithHelper()
