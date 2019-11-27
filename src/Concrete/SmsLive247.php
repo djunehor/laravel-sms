@@ -77,7 +77,7 @@ class SmsLive247 extends Sms
                 return false;
             }
         } catch (\Exception $exception) {
-            $this->httpError = $e;
+            $this->httpError = $exception;
             return false;
         }
         try {

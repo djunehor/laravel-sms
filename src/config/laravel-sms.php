@@ -52,5 +52,10 @@ return [
     ],
     "mebo_sms" => [
         "api_key" => env('MEBO_SMS_API_KEY')
+    ],
+    "infobip" => [
+        "base_url" => env('INFOBIP_BASE_URL'),
+        "username" => env('INFOBIP_USERNAME'),
+        "password" => env('INFOBIP_PASSWORD'),
     ]
 ];
