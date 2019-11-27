@@ -16,7 +16,7 @@ class SmsHelperTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->app['config']->set('laravel-sms.default', BetaSms::class);
+        $this->app['config']->set('laravel-sms.default', MultiTexter::class);
         $this->app['config']->set('laravel-sms.beta_sms.username', 'babalola');
         $this->app['config']->set('laravel-sms.beta_sms.password', 'segun');
     }
