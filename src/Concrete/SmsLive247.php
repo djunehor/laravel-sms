@@ -78,7 +78,7 @@ class SmsLive247 extends Sms
                 return false;
             }
         } catch (\Exception $exception) {
-            $this->httpError = $e;
+            $this->httpError = $exception;
 
             return false;
         }
@@ -95,7 +95,7 @@ class SmsLive247 extends Sms
             ]);
 
             $response = json_decode($response->getBody()->getContents(), true);
-            $split = explide(':', $response);
+            $split = explode(':', $response);
             $this->response = last($split);
 
             return $split[0] == 'OK' ? true : false;

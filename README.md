@@ -94,6 +94,10 @@ KUDI_SMS_PASSWORD=
 MEBO_SMS_API_KEY=
 
 SMSLIVE247_TOKEN=
+
+INFOBIP_BASE_URL=
+INFOBIP_USERNAME=
+INFOBIP_PASSWORD=
 ```
 
 
@@ -143,6 +147,7 @@ $send = send_sms($message, $to);
 |RingCaptcha|https://my.ringcaptcha.com/docs/api|No|
 |SmsLive247|http://portal.smslive247.com/developer_api/http.aspx|No|
 |XWireless|https://xwireless.net/cportal/knowledge-base/article/sms-3|No|
+|InfoBip|https://dev.infobip.com/send-sms/single-sms-message|No|
 
 ### Creating custom SMS Provider
 - Create a class that extends `Djunehor\Sms\Concrete\Sms` class

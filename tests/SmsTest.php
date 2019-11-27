@@ -3,6 +3,7 @@
 namespace Djunehor\Sms\Test;
 
 use Djunehor\Sms\Concrete\BetaSms;
+use Djunehor\Sms\Concrete\Sms;
 
 class SmsTest extends TestCase
 {
@@ -54,5 +55,19 @@ class SmsTest extends TestCase
         $text = ['08092785634'];
         $this->sms->to($text);
         $this->assertTrue($this->sms->hasRecipients());
+    }
+
+    public function testSend()
+    {
+        foreach (get_declared_classes() as $class) {
+            if (is_subclass_of($class, Sms::class)) {
+                $sms = new $class();
+                $send = $sms->to('08099887766')
+                    ->from('Djunehor')
+                    ->send();
+
+                $this->assertIsBool($send);
+            }
+        }
     }
 }

@@ -95,8 +95,9 @@ class GoldSms247 extends Sms
 
             $response = json_decode($response->getBody()->getContents(), true);
             $split = explode(' ', $response);
-            $output == (! $split[0] || $split[0] == 'OK') ? true : false;
             $this->response = array_key_exists($split[0], $this->responseCodes) ? $this->responseCodes[$split[0]] : '';
+
+            return (! $split[0] || $split[0] == 'OK') ? true : false;
         } catch (ClientException $e) {
             Log::info('HTTP Exception in '.__CLASS__.': '.__METHOD__.'=>'.$e->getMessage());
             $this->httpError = $e;
