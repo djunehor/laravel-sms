@@ -1,0 +1,4 @@
+* text=auto
+*src/resources/* linguist-vendored
+*.js linguist-vendored
+*.css linguist-vendored
