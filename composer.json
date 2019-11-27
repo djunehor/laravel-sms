@@ -1,0 +1,51 @@
+{
+  "name": "djunehor/laravel-sms",
+  "description": "Send SMS from your laravel application",
+  "keywords": [
+    "sms",
+    "laravel-package",
+    "laravel",
+    "php",
+    "djunehor"
+  ],
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Zacchaeus Bolaji",
+      "email": "djunehor@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+    "require": {
+        "php": "^7.0",
+    "guzzlehttp/guzzle": "^6.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^3.8",
+        "phpunit/phpunit": "^7.0"
+    },
+  "autoload": {
+    "psr-4": {
+      "Djunehor\\Sms\\": "src/"
+    },
+      "files": [
+          "src/Helpers/helpers.php"
+      ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Djunehor\\Sms\\Test\\": "tests"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit tests"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Djunehor\\Sms\\SmsServiceProvider"
+      ]
+    }
+  }
+}
