@@ -1,16 +1,12 @@
 <?php
 
-
 namespace Djunehor\Sms\Test;
 
-
-use Djunehor\Sms\Concrete\BetaSms;
 use Djunehor\Sms\Concrete\MultiTexter;
 use Djunehor\Sms\Concrete\Nexmo;
 
 class SmsHelperTest extends TestCase
 {
-
     private $sms;
 
     public function setUp(): void
@@ -33,13 +29,13 @@ class SmsHelperTest extends TestCase
     {
         $sent = send_sms('How are you', '08022334455', 'Omolope');
 
-        $this->assertIsBool( $sent);
+        $this->assertIsBool($sent);
     }
 
     public function testSendWithHelperSpecifyClass()
     {
         $sent = send_sms('How are you', '08022334455', 'Omolope', Nexmo::class);
 
-        $this->assertIsBool( $sent);
+        $this->assertIsBool($sent);
     }
 }

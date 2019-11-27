@@ -1,18 +1,22 @@
 <?php
 
-
 namespace Djunehor\Sms\Concrete;
-
 
 abstract class Sms
 {
-
-    protected $text, $username, $password, $recipients = [], $client, $sender, $response;
+    protected $text;
+    protected $username;
+    protected $password;
+    protected $recipients = [];
+    protected $client;
+    protected $sender;
+    protected $response;
 
     /**
      * @var \Exception
      */
     public $httpError;
+
     /**
      * @param $numbers string|array
      * @return $this
@@ -33,6 +37,7 @@ abstract class Sms
         foreach ($numbers as $number) {
             $this->recipients[] = $this->numberFormat($number);
         }
+
         return $this;
     }
 
@@ -43,23 +48,26 @@ abstract class Sms
 
     public function text($text = null)
     {
-        if($text)
+        if ($text) {
             $this->setText($text);
+        }
 
         return $this;
     }
 
     private function numberFormat($number)
     {
-        $number = (string)$number;
+        $number = (string) $number;
         $number = trim($number);
-        $number = preg_replace("/\s|\+|-/", "", $number);
+        $number = preg_replace("/\s|\+|-/", '', $number);
+
         return $number;
     }
 
     public function setText($text)
     {
         $this->text = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', trim($text));
+
         return $this;
     }
 
@@ -71,6 +79,7 @@ abstract class Sms
     public function from($from)
     {
         $this->sender = $from;
+
         return $this;
     }
 
@@ -92,10 +101,10 @@ abstract class Sms
     /**
      * Determines if it has any recipients.
      *
-     * @return boolean [description]
+     * @return bool [description]
      */
     public function hasRecipients()
     {
-        return property_exists($this, 'recipients') && !empty($this->recipients);
+        return property_exists($this, 'recipients') && ! empty($this->recipients);
     }
 }

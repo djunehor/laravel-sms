@@ -3,6 +3,9 @@
 [![Latest Stable Version](https://poser.pugx.org/djunehor/laravel-sms/v/stable)](https://packagist.org/packages/djunehor/laravel-sms)
 [![Total Downloads](https://poser.pugx.org/djunehor/laravel-sms/downloads)](https://packagist.org/packages/djunehor/laravel-sms)
 [![License](https://poser.pugx.org/djunehor/laravel-sms/license)](https://packagist.org/packages/djunehor/laravel-sms)
+[![StyleCI](https://github.styleci.io/repos/224398453/shield?branch=master)](https://github.styleci.io/repos/224398453)
+[![Build Status](https://scrutinizer-ci.com/g/djunehor/laravel-sms/badges/build.png?b=master)](https://scrutinizer-ci.com/g/djunehor/laravel-sms/build-status/master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/djunehor/laravel-sms/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/djunehor/laravel-sms/?branch=master)
 
 Laravel SMS allows you to send SMS from your Laravel application using one of over 10 sms providers, or your own sms provider.
 
@@ -144,6 +147,7 @@ $send = send_sms($message, $to);
 |RingCaptcha|https://my.ringcaptcha.com/docs/api|No|
 |SmsLive247|http://portal.smslive247.com/developer_api/http.aspx|No|
 |XWireless|https://xwireless.net/cportal/knowledge-base/article/sms-3|No|
+|InfoBip|https://dev.infobip.com/send-sms/single-sms-message|No|
 
 ### Creating custom SMS Provider
 - Create a class that extends `Djunehor\Sms\Concrete\Sms` class

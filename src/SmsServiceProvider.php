@@ -3,7 +3,6 @@
 namespace Djunehor\Sms;
 
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 
 class SmsServiceProvider extends ServiceProvider
@@ -21,7 +20,6 @@ class SmsServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/config/laravel-sms.php' => config_path('laravel-sms.php'),
             ], $publishTag);
-
         }
     }
 }
