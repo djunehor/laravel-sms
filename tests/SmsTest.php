@@ -59,8 +59,8 @@ class SmsTest extends TestCase
 
     public function testSend()
     {
-        foreach( get_declared_classes() as $class ){
-            if( is_subclass_of( $class, Sms::class ) ) {
+        foreach (get_declared_classes() as $class) {
+            if (is_subclass_of($class, Sms::class)) {
                 $sms = new $class();
                 $send = $sms->to('08099887766')
                     ->from('Djunehor')
