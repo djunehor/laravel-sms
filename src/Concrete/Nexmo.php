@@ -2,7 +2,6 @@
 
 namespace Djunehor\Sms\Concrete;
 
-
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
 

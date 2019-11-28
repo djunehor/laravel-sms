@@ -57,17 +57,19 @@ class SmsTest extends TestCase
     public function testSend()
     {
         $smsClasses = scandir(__DIR__.'/../src/Concrete');
-        foreach( $smsClasses as $class ) {
-            if($class == '.' || $class == '..' || $class == 'Sms.php') continue;
-                $className = "\Djunehor\Sms\Concrete\\".explode('.', $class)[0];
-                $sms = new $className();
+        foreach ($smsClasses as $class) {
+            if ($class == '.' || $class == '..' || $class == 'Sms.php') {
+                continue;
+            }
+            $className = "\Djunehor\Sms\Concrete\\".explode('.', $class)[0];
+            $sms = new $className();
 
-                $send = $sms->to('+2348135087966')
+            $send = $sms->to('+2348135087966')
                     ->from('Djunehor')
                     ->text('Hello Zacchaeus')
                     ->send();
 
-                $this->assertIsBool($send);
+            $this->assertIsBool($send);
         }
     }
 }

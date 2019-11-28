@@ -23,7 +23,7 @@ class MultiTexter extends Sms
         }
 
         $this->client = self::getInstance();
-        $this->request = new Request('POST', $this->baseUrl."sms");
+        $this->request = new Request('POST', $this->baseUrl.'sms');
     }
 
     /**

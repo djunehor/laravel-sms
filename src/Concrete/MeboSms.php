@@ -21,7 +21,7 @@ class MeboSms extends Sms
         }
 
         $this->client = self::getInstance();
-        $this->request = new Request('GET', $this->baseUrl."api");
+        $this->request = new Request('GET', $this->baseUrl.'api');
     }
 
     /**

@@ -28,7 +28,7 @@ class BulkSmsNigeria extends Sms
         }
 
         $this->client = self::getInstance();
-        $this->request = new Request('POST', $this->baseUrl."create");
+        $this->request = new Request('POST', $this->baseUrl.'create');
     }
 
     /**

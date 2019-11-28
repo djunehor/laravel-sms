@@ -56,7 +56,7 @@ class XWireless extends Sms
         }
 
         $this->client = self::getInstance();
-        $this->request = new Request('GET', $this->baseUrl."SendSMS");
+        $this->request = new Request('GET', $this->baseUrl.'SendSMS');
     }
 
     public function getResponse()

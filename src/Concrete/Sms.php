@@ -2,7 +2,6 @@
 
 namespace Djunehor\Sms\Concrete;
 
-
 use GuzzleHttp\Client;
 
 abstract class Sms
@@ -26,10 +25,12 @@ abstract class Sms
      * only once in entire app lifecycle
      * @return Client
      */
-    public static function getInstance(){
-        if (!self::$httpClient) {
+    public static function getInstance()
+    {
+        if (! self::$httpClient) {
             self::$httpClient = new Client();
         }
+
         return self::$httpClient;
     }
 

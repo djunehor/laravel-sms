@@ -33,7 +33,7 @@ class SmartSmsSolutions extends Sms
         ];
 
         $this->client = $this->getInstance();
-        $this->request = new Request('GET', $this->baseUrl."json.php", $headers);
+        $this->request = new Request('GET', $this->baseUrl.'json.php', $headers);
     }
 
     /**
@@ -54,20 +54,20 @@ class SmartSmsSolutions extends Sms
                     'to' => implode(',', $this->recipients),
                     'sender' => $this->sender ?? config('laravel-sms.sender'),
                     'message' => $this->text,
-                    'routing' => 2 //basic route = 2
-                ]
+                    'routing' => 2, //basic route = 2
+                ],
             ]);
 
             $this->response = json_decode($response->getBody()->getContents(), true);
 
             return array_key_exists('successful', $this->response) ? true : false;
         } catch (ClientException $e) {
-            logger()->error('HTTP Exception in ' . __CLASS__ . ': ' . __METHOD__ . '=>' . $e->getMessage());
+            logger()->error('HTTP Exception in '.__CLASS__.': '.__METHOD__.'=>'.$e->getMessage());
             $this->httpError = $e;
 
             return false;
         } catch (\Exception $e) {
-            logger()->error('SMS Exception in ' . __CLASS__ . ': ' . __METHOD__ . '=>' . $e->getMessage());
+            logger()->error('SMS Exception in '.__CLASS__.': '.__METHOD__.'=>'.$e->getMessage());
             $this->httpError = $e;
 
             return false;

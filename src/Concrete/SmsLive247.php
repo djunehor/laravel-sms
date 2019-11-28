@@ -30,7 +30,7 @@ class SmsLive247 extends Sms
         }
 
         $this->client = self::getInstance();
-        $this->request = new Request('GET', $this->baseUrl."index.aspx");
+        $this->request = new Request('GET', $this->baseUrl.'index.aspx');
     }
 
     public function type(bool $type)

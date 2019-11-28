@@ -21,7 +21,7 @@ class AfricasTalking extends Sms
         $this->client = $this->getInstance();
         $headers = [
           'apiKey' => config('laravel-sms.africas_talking.api_key'),
-            'Content-Type' => 'application/x-www-form-urlencoded'
+            'Content-Type' => 'application/x-www-form-urlencoded',
         ];
         $this->request = new Request('POST', $this->baseUrl.'version1/messaging', $headers);
     }
