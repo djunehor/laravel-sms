@@ -2,9 +2,6 @@
 
 namespace Djunehor\Sms\Test;
 
-use Djunehor\Sms\Concrete\BetaSms;
-use Djunehor\Sms\Concrete\Sms;
-
 class SmsTest extends TestCase
 {
     private $sms;
@@ -12,7 +9,7 @@ class SmsTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->sms = new BetaSms();
+        $this->sms = new \Djunehor\Sms\Concrete\BetaSms();
     }
 
     public function testToSingle()
@@ -59,15 +56,21 @@ class SmsTest extends TestCase
 
     public function testSend()
     {
-        foreach (get_declared_classes() as $class) {
-            if (is_subclass_of($class, Sms::class)) {
-                $sms = new $class();
-                $send = $sms->to('08099887766')
+        // we want to test all SMS classes at once
+        $smsClasses = scandir(__DIR__.'/../src/Concrete');
+        foreach ($smsClasses as $class) {
+            if ($class == '.' || $class == '..' || $class == 'Sms.php') {
+                continue;
+            }
+            $className = "\Djunehor\Sms\Concrete\\".explode('.', $class)[0];
+            $sms = new $className();
+
+            $send = $sms->to('+2348133217966')
                     ->from('Djunehor')
+                    ->text('Hello Djunehor. How are you?')
                     ->send();
 
-                $this->assertIsBool($send);
-            }
+            $this->assertIsBool($send);
         }
     }
 }

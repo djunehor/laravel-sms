@@ -2,22 +2,39 @@
 
 namespace Djunehor\Sms\Concrete;
 
+use GuzzleHttp\Client;
+
 abstract class Sms
 {
     protected $text;
     protected $username;
     protected $password;
     protected $recipients = [];
-    protected $client;
+    private static $httpClient;
     protected $sender;
     protected $response;
+    protected $client;
+    protected $request;
 
     /**
      * @var \Exception
      */
     public $httpError;
 
-    /**
+    /**We want HTTP CLient instantiated
+     * only once in entire app lifecycle
+     * @return Client
+     */
+    public static function getInstance()
+    {
+        if (! self::$httpClient) {
+            self::$httpClient = new Client();
+        }
+
+        return self::$httpClient;
+    }
+
+    /** Define SMS recipient(s)
      * @param $numbers string|array
      * @return $this
      */
