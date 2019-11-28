@@ -56,6 +56,7 @@ class SmsTest extends TestCase
 
     public function testSend()
     {
+        // we want to test all SMS classes at once
         $smsClasses = scandir(__DIR__.'/../src/Concrete');
         foreach ($smsClasses as $class) {
             if ($class == '.' || $class == '..' || $class == 'Sms.php') {
@@ -64,9 +65,9 @@ class SmsTest extends TestCase
             $className = "\Djunehor\Sms\Concrete\\".explode('.', $class)[0];
             $sms = new $className();
 
-            $send = $sms->to('+2348135087966')
+            $send = $sms->to('+2348133217966')
                     ->from('Djunehor')
-                    ->text('Hello Zacchaeus')
+                    ->text('Hello Djunehor. How are you?')
                     ->send();
 
             $this->assertIsBool($send);
