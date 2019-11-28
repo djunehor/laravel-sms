@@ -2,9 +2,8 @@
 
 namespace Djunehor\Sms\Concrete;
 
-use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-use Illuminate\Support\Facades\Log;
+use GuzzleHttp\Psr7\Request;
 
 class MultiTexter extends Sms
 {
@@ -18,15 +17,13 @@ class MultiTexter extends Sms
     {
         $this->username = config('laravel-sms.multitexter.username');
         $this->password = config('laravel-sms.multitexter.password');
+
         if ($message) {
             $this->text($message);
         }
-        $this->client = new Client([
-            'base_uri' => $this->baseUrl,
-            'headers' => [
-                'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36 OPR/47.0.2631.39',
-            ],
-        ]);
+
+        $this->client = self::getInstance();
+        $this->request = new Request('POST', $this->baseUrl."sms");
     }
 
     /**
@@ -40,8 +37,8 @@ class MultiTexter extends Sms
         }
 
         try {
-            $response = $this->client->post('sms', [
-                'query' => [
+            $response = $this->client->send($this->request, [
+                'form_params' => [
                     'recipients' => implode(',', $this->recipients),
                     'sender_name' => $this->sender ?? config('laravel-sms.sender'),
                     'email' => $this->username,
@@ -55,12 +52,12 @@ class MultiTexter extends Sms
 
             return $response['status'] == '1' ? true : false;
         } catch (ClientException $e) {
-            Log::info('HTTP Exception in '.__CLASS__.': '.__METHOD__.'=>'.$e->getMessage());
+            logger()->error('HTTP Exception in '.__CLASS__.': '.__METHOD__.'=>'.$e->getMessage());
             $this->httpError = $e;
 
             return false;
         } catch (\Exception $e) {
-            Log::info('SMS Exception in '.__CLASS__.': '.__METHOD__.'=>'.$e->getMessage());
+            logger()->error('SMS Exception in '.__CLASS__.': '.__METHOD__.'=>'.$e->getMessage());
             $this->httpError = $e;
 
             return false;

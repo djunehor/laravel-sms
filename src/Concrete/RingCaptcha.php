@@ -2,9 +2,8 @@
 
 namespace Djunehor\Sms\Concrete;
 
-use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-use Illuminate\Support\Facades\Log;
+use GuzzleHttp\Psr7\Request;
 
 class RingCaptcha extends Sms
 {
@@ -21,12 +20,8 @@ class RingCaptcha extends Sms
         if ($message) {
             $this->text($message);
         }
-        $this->client = new Client([
-            'base_uri' => $this->baseUrl,
-            'headers' => [
-                'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36 OPR/47.0.2631.39',
-            ],
-        ]);
+        $this->client = self::getInstance();
+        $this->request = new Request('POST', $this->baseUrl."$this->username/sms");
     }
 
     /**
@@ -39,8 +34,8 @@ class RingCaptcha extends Sms
             $this->setText($text);
         }
         try {
-            $request = $this->client->post("$this->username/sms", [
-                'query' => [
+            $request = $this->client->send($this->request, [
+                'form_params' => [
                     'phone' => implode(',', $this->recipients),
                     'app_key' => $this->username,
                     'api_key' => $this->password,
@@ -60,12 +55,12 @@ class RingCaptcha extends Sms
 
             return false;
         } catch (ClientException $e) {
-            Log::info('HTTP Exception in '.__CLASS__.': '.__METHOD__.'=>'.$e->getMessage());
+            logger()->error('HTTP Exception in '.__CLASS__.': '.__METHOD__.'=>'.$e->getMessage());
             $this->httpError = $e;
 
             return false;
         } catch (\Exception $e) {
-            Log::info('SMS Exception in '.__CLASS__.': '.__METHOD__.'=>'.$e->getMessage());
+            logger()->error('SMS Exception in '.__CLASS__.': '.__METHOD__.'=>'.$e->getMessage());
             $this->httpError = $e;
 
             return false;

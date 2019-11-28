@@ -52,5 +52,6 @@ return [
     ],
     'mebo_sms' => [
         'api_key' => env('MEBO_SMS_API_KEY'),
+        'dnd' => env('MEBO_SMS_DND', 0),
     ],
 ];

@@ -2,9 +2,8 @@
 
 namespace Djunehor\Sms\Concrete;
 
-use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-use Illuminate\Support\Facades\Log;
+use GuzzleHttp\Psr7\Request;
 
 class KudiSms extends Sms
 {
@@ -21,15 +20,14 @@ class KudiSms extends Sms
         if ($message) {
             $this->text($message);
         }
-        $this->client = new Client([
-            'base_uri' => $this->baseUrl,
-            'headers' => [
+        $headers = [
                 'apiKey' => $this->username,
                 'Content-Type' => 'application/x-www-form-urlencoded',
                 'Accept' => 'application/json',
                 'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36 OPR/47.0.2631.39',
-            ],
-        ]);
+            ];
+        $this->client = self::getInstance();
+        $this->request = new Request('GET', $this->baseUrl."api/", $headers);
     }
 
     /**
@@ -42,7 +40,7 @@ class KudiSms extends Sms
             $this->setText($text);
         }
         try {
-            $request = $this->client->get('api/', [
+            $request = $this->client->send($this->request, [
                 'query' => [
                     'username' => $this->username,
                     'password' => $this->password,
@@ -62,12 +60,12 @@ class KudiSms extends Sms
 
             return false;
         } catch (ClientException $e) {
-            Log::info('HTTP Exception in '.__CLASS__.': '.__METHOD__.'=>'.$e->getMessage());
+            logger()->error('HTTP Exception in '.__CLASS__.': '.__METHOD__.'=>'.$e->getMessage());
             $this->httpError = $e;
 
             return false;
         } catch (\Exception $e) {
-            Log::info('SMS Exception in '.__CLASS__.': '.__METHOD__.'=>'.$e->getMessage());
+            logger()->error('SMS Exception in '.__CLASS__.': '.__METHOD__.'=>'.$e->getMessage());
             $this->httpError = $e;
 
             return false;

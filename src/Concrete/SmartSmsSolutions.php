@@ -8,9 +8,8 @@
 
 namespace Djunehor\Sms\Concrete;
 
-use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-use Illuminate\Support\Facades\Log;
+use GuzzleHttp\Psr7\Request;
 
 class SmartSmsSolutions extends Sms
 {
@@ -28,13 +27,13 @@ class SmartSmsSolutions extends Sms
             $this->text($message);
         }
 
-        $this->client = new Client([
-            'base_uri' => $this->baseUrl,
-            'headers' => [
-                'header' => 'Content-type: application/x-www-form-urlencoded',
-                'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36 OPR/47.0.2631.39',
-            ],
-        ]);
+        $headers = [
+            'Content-Type' => 'Content-type: application/x-www-form-urlencoded',
+            'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36 OPR/47.0.2631.39',
+        ];
+
+        $this->client = $this->getInstance();
+        $this->request = new Request('GET', $this->baseUrl."json.php", $headers);
     }
 
     /**
@@ -47,32 +46,28 @@ class SmartSmsSolutions extends Sms
             $this->setText($text);
         }
 
-        $routing = 2; //basic route = 2
-        $type = 0;
-        $token = $this->username;
-
         try {
-            $response = $this->client->get('json.php', [
+            $response = $this->client->send($this->request, [
                 'query' => [
-                    'token' => $token,
-                    'type' => $type,
+                    'token' => $this->username,
+                    'type' => 0,
                     'to' => implode(',', $this->recipients),
                     'sender' => $this->sender ?? config('laravel-sms.sender'),
                     'message' => $this->text,
-                    'routing' => $routing,
-                ],
+                    'routing' => 2 //basic route = 2
+                ]
             ]);
 
             $this->response = json_decode($response->getBody()->getContents(), true);
 
             return array_key_exists('successful', $this->response) ? true : false;
         } catch (ClientException $e) {
-            Log::info('HTTP Exception in '.__CLASS__.': '.__METHOD__.'=>'.$e->getMessage());
+            logger()->error('HTTP Exception in ' . __CLASS__ . ': ' . __METHOD__ . '=>' . $e->getMessage());
             $this->httpError = $e;
 
             return false;
         } catch (\Exception $e) {
-            Log::info('SMS Exception in '.__CLASS__.': '.__METHOD__.'=>'.$e->getMessage());
+            logger()->error('SMS Exception in ' . __CLASS__ . ': ' . __METHOD__ . '=>' . $e->getMessage());
             $this->httpError = $e;
 
             return false;
