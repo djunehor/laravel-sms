@@ -115,16 +115,19 @@ This will move the migration file, seeder file and config file to your app. You 
 ## Usage
 ```php
 //using betaSMS
-use Djunehor\Sms\BetaSms;`
+use Djunehor\Sms\BetaSms;
 
 $sms = new BetaSms();
 $sms->text($message)->to(08135087966)->from('MyLaravel')->send();
+//returns true if everything went fine. Or false if error occured.
+//You can get exception via getException() or get the server response via getResponse()
+//exceptions will be logged in your laravel log file
 ```
 
 ### Using Helper function
 ```php
 //MeboSms
-$send = send_sms($message, $to, $from, MeboSms::class);
+$send = send_sms($message, $to, $from, MeboSms::class); //returns true/false
 ```
 The default SMS provider is Nexmo. You can set the default SMS provider in `config/laravel-sms.php` e.g ` 'default' => \Djunehor\Sms\Concrete\SmartSmsSolutions::class,`, so you can use the helper function like this:
 ```php
