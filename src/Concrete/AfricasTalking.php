@@ -20,7 +20,7 @@ class AfricasTalking extends Sms
         }
         $this->client = $this->getInstance();
         $headers = [
-          'apiKey' => config('laravel-sms.africas_talking.api_key'),
+            'apiKey' => config('laravel-sms.africas_talking.api_key'),
             'Content-Type' => 'application/x-www-form-urlencoded',
         ];
         $this->request = new Request('POST', $this->baseUrl.'version1/messaging', $headers);
@@ -39,7 +39,7 @@ class AfricasTalking extends Sms
             $request = $this->client->send($this->request, [
                 'form_params' => [
                     'username' => config('laravel-sms.africas_talking.username', 'djunehor'),
-                   'from' => $this->sender ?? config('laravel-sms.sender'),
+                    'from' => $this->sender ?? config('laravel-sms.sender'),
                     'to' => implode(',', $this->recipients),
                     'message' => $this->text,
                 ],

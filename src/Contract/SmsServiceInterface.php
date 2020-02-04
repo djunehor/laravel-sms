@@ -19,19 +19,19 @@ interface SmsServiceInterface
      * @param array|mixed $numbers
      * @return array
      */
-    public function to($numbers) : self;
+    public function to($numbers): self;
 
     /**
      * @param $text
      * @return $this | string
      */
-    public function text($text = null) : self;
+    public function text($text = null): self;
 
     /**
      * @param $from
      * @return string
      */
-    public function from(string $from) : self;
+    public function from(string $from): self;
 
     /**
      * @return mixed
@@ -41,7 +41,7 @@ interface SmsServiceInterface
     /**
      * @return \Exception|null
      */
-    public function getException() : Sms;
+    public function getException(): Sms;
 
     /**
      * @param null $text

@@ -21,11 +21,11 @@ class NigerianBulkSms extends Sms
             $this->text($message);
         }
         $headers = [
-                'apiKey' => $this->username,
-                'Content-Type' => 'application/x-www-form-urlencoded',
-                'Accept' => 'application/json',
-                'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36 OPR/47.0.2631.39',
-            ];
+            'apiKey' => $this->username,
+            'Content-Type' => 'application/x-www-form-urlencoded',
+            'Accept' => 'application/json',
+            'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36 OPR/47.0.2631.39',
+        ];
 
         $this->client = self::getInstance();
         $this->request = new Request('GET', $this->baseUrl.'api', $headers);

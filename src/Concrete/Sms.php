@@ -58,7 +58,7 @@ abstract class Sms
         return $this;
     }
 
-    public function getRecipients() : array
+    public function getRecipients(): array
     {
         return $this->recipients;
     }

@@ -36,7 +36,7 @@ class MeboSms extends Sms
         try {
             $request = $this->client->send($this->request, [
                 'query' => [
-                   'apikey' => $this->username,
+                    'apikey' => $this->username,
                     'sender' => $this->sender ?? config('laravel-sms.sender'),
                     'destination' => implode(',', $this->recipients),
                     'mssg' => $this->text,
