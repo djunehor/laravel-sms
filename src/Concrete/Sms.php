@@ -34,7 +34,7 @@ abstract class Sms
         return self::$httpClient;
     }
 
-    /** Define SMS recipient(s)
+    /** Define SMS recipient(s).
      * @param $numbers string|array
      * @return $this
      */
