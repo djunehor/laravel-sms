@@ -27,15 +27,27 @@ class SmsHelperTest extends TestCase
 
     public function testSendWithHelper()
     {
-        $sent = send_sms('How are you', '08022334455', 'Omolope');
+        $sent = $this->send_sms('How are you', '08022334455', 'Omolope');
 
         $this->assertIsBool($sent);
     }
 
     public function testSendWithHelperSpecifyClass()
     {
-        $sent = send_sms('How are you', '08022334455', 'Omolope', Nexmo::class);
+        $sent = $this->send_sms('How are you', '08022334455', 'Omolope', Nexmo::class);
 
         $this->assertIsBool($sent);
+    }
+
+    protected function send_sms(string $message, string $to, $from = null, string $class = null)
+    {
+        $class = $class ? $class : config('laravel-sms.default');
+        $sms = new $class($message);
+        $sms->to($to);
+        if ($from) {
+            $sms->from($from);
+        }
+
+        return $sms->send();
     }
 }

@@ -17,7 +17,7 @@ class InfoBip extends Sms
     {
         $this->username = config('laravel-sms.infobip.username');
         $this->password = config('laravel-sms.infobip.password');
-        $this->baseUrl = config('laravel-sms.infobip.base_url', 'http://infobio.com/');
+        $this->baseUrl = config('laravel-sms.infobip.base_url', 'http://infobip.com/');
         if ($message) {
             $this->text($message);
         }

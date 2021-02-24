@@ -28,10 +28,7 @@
   "autoload": {
     "psr-4": {
       "Djunehor\\Sms\\": "src/"
-    },
-      "files": [
-        "src/App/Helpers/helpers.php"
-      ]
+    }
   },
   "autoload-dev": {
     "psr-4": {
