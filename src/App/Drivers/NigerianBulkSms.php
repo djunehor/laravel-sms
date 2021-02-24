@@ -1,13 +1,13 @@
 <?php
 
-namespace Djunehor\Sms\Concrete;
+namespace Djunehor\Sms\App\Drivers;
 
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
 
-class InfoBip extends Sms
+class NigerianBulkSms extends Sms
 {
-    private $baseUrl;
+    private $baseUrl = 'http://portal.nigeriabulksms.com/';
 
     /**
      * Class Constructor.
@@ -15,20 +15,20 @@ class InfoBip extends Sms
      */
     public function __construct($message = null)
     {
-        $this->username = config('laravel-sms.infobip.username');
-        $this->password = config('laravel-sms.infobip.password');
-        $this->baseUrl = config('laravel-sms.infobip.base_url', 'http://infobio.com/');
+        $this->username = config('laravel-sms.nigerian_bulk_sms.username');
+        $this->password = config('laravel-sms.nigerian_bulk_sms.password');
         if ($message) {
             $this->text($message);
         }
         $headers = [
-            'Authorization' => 'Basic '.base64_encode("$this->username:$this->password"),
-            'Content-Type' => 'application/json',
+            'apiKey' => $this->username,
+            'Content-Type' => 'application/x-www-form-urlencoded',
+            'Accept' => 'application/json',
             'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36 OPR/47.0.2631.39',
         ];
 
         $this->client = self::getInstance();
-        $this->request = new Request('POST', $this->baseUrl.'/sms/2/text/single', $headers);
+        $this->request = new Request('GET', $this->baseUrl.'api', $headers);
     }
 
     /**
@@ -42,17 +42,24 @@ class InfoBip extends Sms
         }
         try {
             $request = $this->client->send($this->request, [
-                'form_params' => [
-                    'from' => $this->sender ?? config('laravel-sms.sender'),
-                    'to' => implode(',', $this->recipients),
-                    'text' => $this->text,
+                'query' => [
+                    'username' => $this->username,
+                    'password' => $this->password,
+                    'sender' => $this->sender ?? config('laravel-sms.sender'),
+                    'mobiles' => implode(',', $this->recipients),
+                    'message' => $this->text,
                 ],
             ]);
 
             $response = json_decode($request->getBody()->getContents(), true);
-            $this->response = $response;
 
-            return $request->getStatusCode() == 200 ? true : false;
+            if (isset($response['status']) && $response['status'] == 'OK') {
+                return true;
+            }
+
+            $this->response = $response['error'];
+
+            return false;
         } catch (ClientException $e) {
             logger()->error('HTTP Exception in '.__CLASS__.': '.__METHOD__.'=>'.$e->getMessage());
             $this->httpError = $e;

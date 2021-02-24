@@ -18,7 +18,7 @@ class SmsServiceProvider extends ServiceProvider
         $publishTag = 'laravel-sms';
         if (app() instanceof \Illuminate\Foundation\Application) {
             $this->publishes([
-                __DIR__.'/config/laravel-sms.php' => config_path('laravel-sms.php'),
+                __DIR__ . '/config/laravel-sms.php' => config_path('laravel-sms.php'),
             ], $publishTag);
         }
     }

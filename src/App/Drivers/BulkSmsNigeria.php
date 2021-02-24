@@ -6,14 +6,14 @@
  * Time: 9:36 AM.
  */
 
-namespace Djunehor\Sms\Concrete;
+namespace Djunehor\Sms\App\Drivers;
 
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
 
-class BetaSms extends Sms
+class BulkSmsNigeria extends Sms
 {
-    private $baseUrl = 'http://login.betasms.com.ng/';
+    private $baseUrl = 'https://www.bulksmsnigeria.com/api/v1/sms/';
 
     /**
      * Class Constructor.
@@ -21,15 +21,14 @@ class BetaSms extends Sms
      */
     public function __construct($message = null)
     {
-        $this->username = config('laravel-sms.beta_sms.username');
-        $this->password = config('laravel-sms.beta_sms.password');
+        $this->username = config('laravel-sms.bulk_sms_nigeria.token');
 
         if ($message) {
             $this->text($message);
         }
 
-        $this->client = $this->getInstance();
-        $this->request = new Request('POST', $this->baseUrl.'api/');
+        $this->client = self::getInstance();
+        $this->request = new Request('POST', $this->baseUrl.'create');
     }
 
     /**
@@ -44,18 +43,18 @@ class BetaSms extends Sms
         try {
             $response = $this->client->send($this->request, [
                 'form_params' => [
-                    'mobiles' => implode(',', $this->recipients),
-                    'sender' => $this->sender ?? config('laravel-sms.sender'),
-                    'username' => $this->username,
-                    'password' => $this->password,
-                    'message' => $this->text,
+                    'api_token' => config('laravel-sms.bulk_sms_nigeria.token'),
+                    'to' => implode(',', $this->recipients),
+                    'from' => $this->sender ?? config('laravel-sms.sender'),
+                    'body' => $this->text,
+                    'dnd' => config('laravel-sms.bulk_sms_nigeria.dnd'),
                 ],
             ]);
 
             $response = json_decode($response->getBody()->getContents(), true);
-            $this->response = array_key_exists('status', $response) ? $response['status'] : $response['error'];
+            $this->response = array_key_exists('error', $response) ? $response['error']['message'] : $response['data']['message'];
 
-            return $this->response == 'OK' ? true : false;
+            return $response['data']['status'] == 'success' ? true : false;
         } catch (ClientException $e) {
             logger()->error('HTTP Exception in '.__CLASS__.': '.__METHOD__.'=>'.$e->getMessage());
             $this->httpError = $e;

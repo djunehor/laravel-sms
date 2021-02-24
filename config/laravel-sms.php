@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'default' => \Djunehor\Sms\Concrete\MultiTexter::class,
+    'default' => \Djunehor\Sms\App\Drivers\MultiTexter::class,
     'sender' => env('SMS_SENDER', 'MyApp'),
     'beta_sms' => [
         'username' => env('BETASMS_USERNAME'),

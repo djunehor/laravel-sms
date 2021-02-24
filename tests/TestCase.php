@@ -33,7 +33,7 @@ abstract class TestCase extends BaseTestCase
     {
         // TODO: Implement getEnvironmentSetUp() method.
         $this->app = $app;
-        $smsConfig = include_once __DIR__.'/../src/config/laravel-sms.php';
+        $smsConfig = include_once __DIR__ . '/../config/laravel-sms.php';
         $app['config']->set('laravel-sms', $smsConfig);
     }
 }

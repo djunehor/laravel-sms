@@ -6,7 +6,7 @@
  * Time: 5:51 PM.
  */
 
-namespace Djunehor\Sms\Concrete;
+namespace Djunehor\Sms\App\Drivers;
 
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;

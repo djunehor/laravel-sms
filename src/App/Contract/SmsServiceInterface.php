@@ -6,9 +6,9 @@
  * Time: 3:47 PM.
  */
 
-namespace Djunehor\Sms\Contracts;
+namespace Djunehor\Sms\App\Contract;
 
-use Djunehor\Sms\Concrete\Sms;
+use Djunehor\Sms\App\Drivers\Sms;
 
 /**
  * Interface SmsServiceInterface.

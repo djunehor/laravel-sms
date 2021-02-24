@@ -1,13 +1,13 @@
 <?php
 
-namespace Djunehor\Sms\Concrete;
+namespace Djunehor\Sms\App\Drivers;
 
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
 
-class AfricasTalking extends Sms
+class MeboSms extends Sms
 {
-    private $baseUrl = 'https://api.africastalking.com/';
+    private $baseUrl = 'http://mebosms.com/';
 
     /**
      * Class Constructor.
@@ -15,15 +15,13 @@ class AfricasTalking extends Sms
      */
     public function __construct($message = null)
     {
+        $this->username = config('laravel-sms.mebo_sms.api_key');
         if ($message) {
             $this->text($message);
         }
-        $this->client = $this->getInstance();
-        $headers = [
-            'apiKey' => config('laravel-sms.africas_talking.api_key'),
-            'Content-Type' => 'application/x-www-form-urlencoded',
-        ];
-        $this->request = new Request('POST', $this->baseUrl.'version1/messaging', $headers);
+
+        $this->client = self::getInstance();
+        $this->request = new Request('GET', $this->baseUrl.'api');
     }
 
     /**
@@ -37,23 +35,22 @@ class AfricasTalking extends Sms
         }
         try {
             $request = $this->client->send($this->request, [
-                'form_params' => [
-                    'username' => config('laravel-sms.africas_talking.username', 'djunehor'),
-                    'from' => $this->sender ?? config('laravel-sms.sender'),
-                    'to' => implode(',', $this->recipients),
-                    'message' => $this->text,
+                'query' => [
+                    'apikey' => $this->username,
+                    'sender' => $this->sender ?? config('laravel-sms.sender'),
+                    'destination' => implode(',', $this->recipients),
+                    'mssg' => $this->text,
+                    'dnd' => config('laravel-sms.mebo_sms.dnd'),
                 ],
             ]);
 
             $response = json_decode($request->getBody()->getContents(), true);
 
-            if (! empty($response['SMSMessageData']['Recipients'])) {
-                $this->response = $response['SMSMessageData']['Message'];
-
+            if (isset($response['status']) && $response['status'] == 'OK') {
                 return true;
             }
 
-            $this->response = $response['SMSMessageData']['Message'];
+            $this->response = $response['error'];
 
             return false;
         } catch (ClientException $e) {

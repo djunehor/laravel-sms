@@ -2,8 +2,8 @@
 
 namespace Djunehor\Sms\Test;
 
-use Djunehor\Sms\Concrete\MultiTexter;
-use Djunehor\Sms\Concrete\Nexmo;
+use Djunehor\Sms\App\Drivers\MultiTexter;
+use Djunehor\Sms\App\Drivers\Nexmo;
 
 class SmsHelperTest extends TestCase
 {

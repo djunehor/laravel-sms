@@ -1,6 +1,6 @@
 <?php
 
-namespace Djunehor\Sms\Concrete;
+namespace Djunehor\Sms\App\Drivers;
 
 use GuzzleHttp\Client;
 

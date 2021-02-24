@@ -18,7 +18,7 @@
   ],
   "minimum-stability": "dev",
     "require": {
-        "php": "^7.0|~7.2|~7.4",
+        "php": "^7.4 | ^8.0",
     "guzzlehttp/guzzle": "^7.0.1"
     },
     "require-dev": {
@@ -30,7 +30,7 @@
       "Djunehor\\Sms\\": "src/"
     },
       "files": [
-          "src/Helpers/helpers.php"
+        "src/App/Helpers/helpers.php"
       ]
   },
   "autoload-dev": {
@@ -44,7 +44,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Djunehor\\Sms\\SmsServiceProvider"
+        "Djunehor\\Sms\\App\\SmsServiceProvider"
       ]
     }
   }

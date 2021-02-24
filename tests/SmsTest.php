@@ -9,7 +9,7 @@ class SmsTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->sms = new \Djunehor\Sms\Concrete\BetaSms();
+        $this->sms = new \Djunehor\Sms\App\Drivers\BetaSms();
     }
 
     public function testToSingle()
@@ -57,12 +57,12 @@ class SmsTest extends TestCase
     public function testSend()
     {
         // we want to test all SMS classes at once
-        $smsClasses = scandir(__DIR__.'/../src/Concrete');
+        $smsClasses = scandir(__DIR__ . '/../src/App/Drivers');
         foreach ($smsClasses as $class) {
             if ($class == '.' || $class == '..' || $class == 'Sms.php') {
                 continue;
             }
-            $className = "\Djunehor\Sms\Concrete\\".explode('.', $class)[0];
+            $className = "\Djunehor\Sms\App\Drivers\\".explode('.', $class)[0];
             $sms = new $className();
 
             $send = $sms->to('+2348133217966')
