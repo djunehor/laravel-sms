@@ -47,7 +47,7 @@ class GoldSms247 extends Sms
      * Class Constructor.
      * @param null $message
      */
-    public function __construct(string $message = null)
+    public function __construct($message = null)
     {
         $this->username = config('laravel-sms.gold_sms_247.username');
         $this->password = config('laravel-sms.gold_sms_247.password');
@@ -71,7 +71,7 @@ class GoldSms247 extends Sms
      * @param null $text
      * @return bool
      */
-    public function send(string $text = null): bool
+    public function send($text = null): bool
     {
         if ($text) {
             $this->setText($text);

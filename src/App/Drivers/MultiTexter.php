@@ -13,7 +13,7 @@ class MultiTexter extends Sms
      * Class Constructor.
      * @param null $message
      */
-    public function __construct(string $message = null)
+    public function __construct($message = null)
     {
         $this->username = config('laravel-sms.multitexter.username');
         $this->password = config('laravel-sms.multitexter.password');
@@ -30,7 +30,7 @@ class MultiTexter extends Sms
      * @param null $text
      * @return bool
      */
-    public function send(string $text = null): bool
+    public function send($text = null): bool
     {
         if ($text) {
             $this->setText($text);

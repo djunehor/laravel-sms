@@ -49,7 +49,7 @@ abstract class Sms
         return $this;
     }
 
-    private function setRecipients(array $numbers): self
+    private function setRecipients($numbers): self
     {
         foreach ($numbers as $number) {
             $this->recipients[] = $this->numberFormat($number);
@@ -63,7 +63,7 @@ abstract class Sms
         return $this->recipients;
     }
 
-    public function text(string $text = null): self
+    public function text($text = null): self
     {
         if ($text) {
             $this->setText($text);

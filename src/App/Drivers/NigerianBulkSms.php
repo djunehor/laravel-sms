@@ -13,7 +13,7 @@ class NigerianBulkSms extends Sms
      * Class Constructor.
      * @param null $message
      */
-    public function __construct(string $message = null)
+    public function __construct($message = null)
     {
         $this->username = config('laravel-sms.nigerian_bulk_sms.username');
         $this->password = config('laravel-sms.nigerian_bulk_sms.password');
@@ -35,7 +35,7 @@ class NigerianBulkSms extends Sms
      * @param null $text
      * @return bool
      */
-    public function send(string $text = null): bool
+    public function send($text = null): bool
     {
         if ($text) {
             $this->setText($text);

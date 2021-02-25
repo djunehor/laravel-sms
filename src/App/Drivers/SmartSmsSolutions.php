@@ -20,7 +20,7 @@ class SmartSmsSolutions extends Sms
      *
      * @param null $message
      */
-    public function __construct(string $message = null)
+    public function __construct($message = null)
     {
         $this->username = config('laravel-sms.smart_sms.token');
         if ($message) {
@@ -40,7 +40,7 @@ class SmartSmsSolutions extends Sms
      * @param null $text
      * @return bool
      */
-    public function send(string $text = null): bool
+    public function send($text = null): bool
     {
         if ($text) {
             $this->setText($text);
