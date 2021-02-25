@@ -21,7 +21,7 @@ class SmsLive247 extends Sms
      *
      * @param null $message
      */
-    public function __construct($message = null)
+    public function __construct(string $message = null)
     {
         $this->username = config('laravel-sms.smslive247.token');
 
@@ -33,7 +33,7 @@ class SmsLive247 extends Sms
         $this->request = new Request('GET', $this->baseUrl.'index.aspx');
     }
 
-    public function type(bool $type)
+    public function type(bool $type): self
     {
         $this->messageType = $type;
 
@@ -44,7 +44,7 @@ class SmsLive247 extends Sms
      * @param null $text
      * @return bool
      */
-    public function send($text = null): bool
+    public function send(string $text = null): bool
     {
         if ($text) {
             $this->setText($text);
@@ -94,7 +94,7 @@ class SmsLive247 extends Sms
             $split = explode(':', $response);
             $this->response = last($split);
 
-            return $split[0] == 'OK' ? true : false;
+            return $split[0] == 'OK';
         } catch (ClientException $e) {
             logger()->error('HTTP Exception in '.__CLASS__.': '.__METHOD__.'=>'.$e->getMessage());
             $this->httpError = $e;

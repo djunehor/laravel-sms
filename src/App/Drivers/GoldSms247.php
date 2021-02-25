@@ -47,7 +47,7 @@ class GoldSms247 extends Sms
      * Class Constructor.
      * @param null $message
      */
-    public function __construct($message = null)
+    public function __construct(string $message = null)
     {
         $this->username = config('laravel-sms.gold_sms_247.username');
         $this->password = config('laravel-sms.gold_sms_247.password');
@@ -60,7 +60,7 @@ class GoldSms247 extends Sms
         $this->request = new Request('GET', $this->baseUrl.'smsapi.php');
     }
 
-    public function getResponse()
+    public function getResponse(): string
     {
         $split = explode(' ', $this->response);
 
@@ -71,7 +71,7 @@ class GoldSms247 extends Sms
      * @param null $text
      * @return bool
      */
-    public function send($text = null): bool
+    public function send(string $text = null): bool
     {
         if ($text) {
             $this->setText($text);
@@ -91,7 +91,7 @@ class GoldSms247 extends Sms
             $split = explode(' ', $response);
             $this->response = array_key_exists($split[0], $this->responseCodes) ? $this->responseCodes[$split[0]] : '';
 
-            return (! $split[0] || $split[0] == 'OK') ? true : false;
+            return ! $split[0] || $split[0] == 'OK';
         } catch (ClientException $e) {
             logger()->error('HTTP Exception in '.__CLASS__.': '.__METHOD__.'=>'.$e->getMessage());
             $this->httpError = $e;

@@ -21,11 +21,11 @@ abstract class Sms
      */
     public $httpError;
 
-    /**We want HTTP CLient instantiated
+    /**We want HTTP Client instantiated
      * only once in entire app lifecycle
      * @return Client
      */
-    public static function getInstance()
+    public static function getInstance(): Client
     {
         if (! self::$httpClient) {
             self::$httpClient = new Client();
@@ -38,7 +38,7 @@ abstract class Sms
      * @param $numbers string|array
      * @return $this
      */
-    public function to($numbers)
+    public function to($numbers): self
     {
         $numbers = is_array($numbers) ? $numbers : func_get_args();
 
@@ -49,7 +49,7 @@ abstract class Sms
         return $this;
     }
 
-    private function setRecipients($numbers)
+    private function setRecipients(array $numbers): self
     {
         foreach ($numbers as $number) {
             $this->recipients[] = $this->numberFormat($number);
@@ -63,7 +63,7 @@ abstract class Sms
         return $this->recipients;
     }
 
-    public function text($text = null)
+    public function text(string $text = null): self
     {
         if ($text) {
             $this->setText($text);
@@ -72,7 +72,7 @@ abstract class Sms
         return $this;
     }
 
-    private function numberFormat($number)
+    private function numberFormat($number): string
     {
         $number = (string) $number;
         $number = trim($number);
@@ -81,36 +81,36 @@ abstract class Sms
         return $number;
     }
 
-    public function setText($text)
+    public function setText($text): self
     {
         $this->text = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', trim($text));
 
         return $this;
     }
 
-    public function getText()
+    public function getText(): string
     {
         return $this->text;
     }
 
-    public function from($from)
+    public function from($from): self
     {
         $this->sender = $from;
 
         return $this;
     }
 
-    public function getSender()
+    public function getSender(): string
     {
         return $this->sender;
     }
 
-    public function getResponse()
+    public function getResponse(): string
     {
         return $this->response;
     }
 
-    public function getException()
+    public function getException(): string
     {
         return $this->httpError;
     }
@@ -120,7 +120,7 @@ abstract class Sms
      *
      * @return bool [description]
      */
-    public function hasRecipients()
+    public function hasRecipients(): bool
     {
         return property_exists($this, 'recipients') && ! empty($this->recipients);
     }

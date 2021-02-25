@@ -13,7 +13,7 @@ class MultiTexter extends Sms
      * Class Constructor.
      * @param null $message
      */
-    public function __construct($message = null)
+    public function __construct(string $message = null)
     {
         $this->username = config('laravel-sms.multitexter.username');
         $this->password = config('laravel-sms.multitexter.password');
@@ -30,7 +30,7 @@ class MultiTexter extends Sms
      * @param null $text
      * @return bool
      */
-    public function send($text = null): bool
+    public function send(string $text = null): bool
     {
         if ($text) {
             $this->setText($text);
@@ -50,7 +50,7 @@ class MultiTexter extends Sms
             $response = json_decode($response->getBody()->getContents(), true);
             $this->response = $response['msg'];
 
-            return $response['status'] == '1' ? true : false;
+            return $response['status'] == '1';
         } catch (ClientException $e) {
             logger()->error('HTTP Exception in '.__CLASS__.': '.__METHOD__.'=>'.$e->getMessage());
             $this->httpError = $e;

@@ -55,6 +55,8 @@ return [
         'dnd' => env('MEBO_SMS_DND', 0),
     ],
     'infobip' => [
-
+        'api_key' => env('INFOBIP_API_KEY'),
+        'username' => env('INFOBIP_USERNAME'),
+        'password' => env('INFOBIP_PASSWORD')
     ]
 ];

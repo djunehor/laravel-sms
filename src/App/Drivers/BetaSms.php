@@ -19,7 +19,7 @@ class BetaSms extends Sms
      * Class Constructor.
      * @param null $message
      */
-    public function __construct($message = null)
+    public function __construct(string $message = null)
     {
         $this->username = config('laravel-sms.beta_sms.username');
         $this->password = config('laravel-sms.beta_sms.password');
@@ -36,7 +36,7 @@ class BetaSms extends Sms
      * @param null $text
      * @return bool
      */
-    public function send($text = null): bool
+    public function send(string $text = null): bool
     {
         if ($text) {
             $this->setText($text);
@@ -55,7 +55,7 @@ class BetaSms extends Sms
             $response = json_decode($response->getBody()->getContents(), true);
             $this->response = array_key_exists('status', $response) ? $response['status'] : $response['error'];
 
-            return $this->response == 'OK' ? true : false;
+            return $this->response == 'OK';
         } catch (ClientException $e) {
             logger()->error('HTTP Exception in '.__CLASS__.': '.__METHOD__.'=>'.$e->getMessage());
             $this->httpError = $e;

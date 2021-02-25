@@ -46,7 +46,7 @@ class XWireless extends Sms
      * Class Constructor.
      * @param null $message
      */
-    public function __construct($message = null)
+    public function __construct(string $message = null)
     {
         $this->username = config('laravel-sms.x_wireless.api_key');
         $this->password = config('laravel-sms.x_wireless.client_id');
@@ -59,7 +59,7 @@ class XWireless extends Sms
         $this->request = new Request('GET', $this->baseUrl.'SendSMS');
     }
 
-    public function getResponse()
+    public function getResponse(): string
     {
         $split = explode(' ', $this->response);
 
@@ -70,7 +70,7 @@ class XWireless extends Sms
      * @param null $text
      * @return bool
      */
-    public function send($text = null): bool
+    public function send(string $text = null): bool
     {
         if ($text) {
             $this->setText($text);
@@ -88,7 +88,7 @@ class XWireless extends Sms
 
             $this->response = json_decode($response->getBody()->getContents(), true);
 
-            return $this->response['ErrorDescription'] == 'Success' ? true : false;
+            return $this->response['ErrorDescription'] == 'Success';
         } catch (ClientException $e) {
             logger()->error('HTTP Exception in '.__CLASS__.': '.__METHOD__.'=>'.$e->getMessage());
             $this->httpError = $e;

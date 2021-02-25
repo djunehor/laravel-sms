@@ -19,7 +19,7 @@ class BulkSmsNigeria extends Sms
      * Class Constructor.
      * @param null $message
      */
-    public function __construct($message = null)
+    public function __construct(string $message = null)
     {
         $this->username = config('laravel-sms.bulk_sms_nigeria.token');
 
@@ -35,7 +35,7 @@ class BulkSmsNigeria extends Sms
      * @param null $text
      * @return bool
      */
-    public function send($text = null): bool
+    public function send(string $text = null): bool
     {
         if ($text) {
             $this->setText($text);
@@ -54,7 +54,7 @@ class BulkSmsNigeria extends Sms
             $response = json_decode($response->getBody()->getContents(), true);
             $this->response = array_key_exists('error', $response) ? $response['error']['message'] : $response['data']['message'];
 
-            return $response['data']['status'] == 'success' ? true : false;
+            return $response['data']['status'] == 'success';
         } catch (ClientException $e) {
             logger()->error('HTTP Exception in '.__CLASS__.': '.__METHOD__.'=>'.$e->getMessage());
             $this->httpError = $e;

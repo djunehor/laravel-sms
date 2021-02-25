@@ -25,7 +25,7 @@ interface SmsServiceInterface
      * @param $text
      * @return $this | string
      */
-    public function text($text = null): self;
+    public function text(string $text = null): self;
 
     /**
      * @param $from

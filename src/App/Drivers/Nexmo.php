@@ -13,7 +13,7 @@ class Nexmo extends Sms
      * Class Constructor.
      * @param null $message
      */
-    public function __construct($message = null)
+    public function __construct(string $message = null)
     {
         $this->username = config('laravel-sms.nexmo.api_key');
         $this->password = config('laravel-sms.nexmo.api_secret');
@@ -29,7 +29,7 @@ class Nexmo extends Sms
      * @param null $text
      * @return bool
      */
-    public function send($text = null): bool
+    public function send(string $text = null): bool
     {
         if ($text) {
             $this->setText($text);

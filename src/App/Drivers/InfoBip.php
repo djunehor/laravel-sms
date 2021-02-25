@@ -13,7 +13,7 @@ class InfoBip extends Sms
      * Class Constructor.
      * @param null $message
      */
-    public function __construct($message = null)
+    public function __construct(string $message = null)
     {
         $this->username = config('laravel-sms.infobip.username');
         $this->password = config('laravel-sms.infobip.password');
@@ -35,7 +35,7 @@ class InfoBip extends Sms
      * @param null $text
      * @return bool
      */
-    public function send($text = null): bool
+    public function send(string $text = null): bool
     {
         if ($text) {
             $this->setText($text);
@@ -52,7 +52,7 @@ class InfoBip extends Sms
             $response = json_decode($request->getBody()->getContents(), true);
             $this->response = $response;
 
-            return $request->getStatusCode() == 200 ? true : false;
+            return $request->getStatusCode() == 200;
         } catch (ClientException $e) {
             logger()->error('HTTP Exception in '.__CLASS__.': '.__METHOD__.'=>'.$e->getMessage());
             $this->httpError = $e;
