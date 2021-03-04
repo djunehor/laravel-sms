@@ -33,7 +33,7 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: composer install -n --prefer-dist
+      - run: php -d memory_limit=-1 /usr/bin/composer install -n --prefer-dist
 
       - save_cache:
           key: v1-dependencies-{{ checksum "composer.json" }}
