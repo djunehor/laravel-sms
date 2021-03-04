@@ -51,7 +51,7 @@ class BulkSmsNigeria extends Sms
                 ],
             ]);
 
-            $response = json_decode($response->getBody()->getContents(), true);
+            $response = json_decode($response->getBody()->getContents(), true) ?? [];
             $this->response = array_key_exists('error', $response) ? $response['error']['message'] : $response['data']['message'];
 
             return $response['data']['status'] == 'success' ? true : false;
