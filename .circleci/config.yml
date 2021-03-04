@@ -46,5 +46,5 @@ jobs:
       - run: chmod +x ./cc-test-reporter
       - run: sudo docker-php-ext-enable xdebug
       - run: ./cc-test-reporter before-build
-      - run: sudo vendor/bin/phpunit --coverage-clover clover.xml
+      - run: sudo XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-clover clover.xml
       - run: ./cc-test-reporter after-build --coverage-input-type clover --exit-code $?
