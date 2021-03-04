@@ -19,7 +19,7 @@
   "minimum-stability": "dev",
     "require": {
         "php": ">=7.0",
-        "guzzlehttp/guzzle": ">=7.0.1"
+        "guzzlehttp/guzzle": ">=6.5.x-dev"
     },
     "require-dev": {
         "orchestra/testbench": ">=3.8",
