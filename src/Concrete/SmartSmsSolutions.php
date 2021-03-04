@@ -33,7 +33,7 @@ class SmartSmsSolutions extends Sms
         ];
 
         $this->client = $this->getInstance();
-        $this->request = new Request('GET', $this->baseUrl.'json.php', $headers);
+        $this->request = new Request('GET', $this->baseUrl.'json.php?', $headers);
     }
 
     /**
