@@ -41,7 +41,7 @@ jobs:
             - ./vendor
 
       # run tests with phpunit or codecept
-      - run: ./vendor/bin/phpunit --coverage-clover=coverage.clover
+      - run: XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-clover=coverage.clover
       - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
       - run: chmod +x ./cc-test-reporter
       - run: sudo docker-php-ext-enable xdebug
