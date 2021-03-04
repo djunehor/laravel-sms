@@ -153,6 +153,7 @@ $send = send_sms($message, $to);
 |XWireless|https://xwireless.net/cportal/knowledge-base/article/sms-3|No|
 |InfoBip|https://dev.infobip.com/send-sms/single-sms-message|No|
 
+> Note: For smartSmsSolutions, you have to whitelist the sender on the platform before using, else smartsms will automatically change your senderId when sending - https://github.com/djunehor/laravel-sms/issues/6
 ### Creating custom SMS Provider
 - Create a class that extends `Djunehor\Sms\Concrete\Sms` class
 - Implement the `send()` which makes the request and return bool
