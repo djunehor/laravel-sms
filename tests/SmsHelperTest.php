@@ -9,7 +9,7 @@ class SmsHelperTest extends TestCase
 {
     private $sms;
 
-    public function setUp()
+    public function setUp() :void
     {
         parent::setUp();
         $this->app['config']->set('laravel-sms.default', MultiTexter::class);
