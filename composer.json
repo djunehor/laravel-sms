@@ -19,7 +19,7 @@
   "minimum-stability": "dev",
     "require": {
         "php": "^7.0|~7.2|~7.4",
-    "guzzlehttp/guzzle": "^7.0.1"
+        "guzzlehttp/guzzle": "^7.0.1"
     },
     "require-dev": {
         "orchestra/testbench": "^3.8",
@@ -35,7 +35,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Djunehor\\Sms\\Test\\": "tests"
+      "Djunehor\\Sms\\Tests\\": "tests"
     }
   },
   "scripts": {
