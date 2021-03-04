@@ -22,8 +22,8 @@
         "guzzlehttp/guzzle": ">=6.5.x-dev"
     },
     "require-dev": {
-        "orchestra/testbench": ">=3.5.0",
-        "phpunit/phpunit": ">=7.0"
+        "orchestra/testbench": ">=3.5.x-dev",
+        "phpunit/phpunit": ">=6.0"
     },
   "autoload": {
     "psr-4": {
