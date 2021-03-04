@@ -11,16 +11,20 @@
 Laravel SMS allows you to send SMS from your Laravel application using one of over 10 sms providers, or your own sms provider.
 
 - [Laravel SMS](#laravel-sms)
+    - [Requirements](#requirements)
     - [Installation](#installation)
         - [Laravel 5.5 and above](#laravel-55-and-above)
         - [Laravel 5.4 and older](#laravel-54-and-older)
         - [Lumen](#lumen)
         - [Env Keys](#env-keys)
     - [Usage](#usage)
-        - [All parts of speech](#using-helper-function)
+        - [Using Helper Function](#using-helper-function)
     - [Available SMS Providers](#available-sms-providers)
     - [Creating custom SMS Provider](#creating-custom-sms-provider)
     - [Contributing](#contributing)
+
+## Requirements
+- PHP >=7.1
 
 ## Installation
 
@@ -161,6 +165,7 @@ $send = send_sms($message, $to);
 
 ## Contributing
 - Fork this project
-- Clone to your repo
+- Clone your forked repo
 - Make your changes and run tests `composer test`
-- Push and create Pull request
+- Push and create Pull Request
+- Make sure your PR passes all checks
