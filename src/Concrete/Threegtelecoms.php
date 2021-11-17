@@ -48,6 +48,7 @@ class Threegtelecoms extends Sms
             $response = json_decode($request->getBody()->getContents(), true);
 
             if (isset($response['status']) && $response['status'] == 'OK') {
+                $this->response = $response;
                 return true;
             }
             $this->response = $response['error'];
