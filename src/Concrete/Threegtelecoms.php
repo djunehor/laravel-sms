@@ -20,7 +20,7 @@ class Threegtelecoms extends Sms
         if ($message) {
             $this->text($message);
         }
-        
+
         $this->client = self::getInstance();
         $this->request = new Request('GET', $this->baseUrl);
     }
@@ -44,11 +44,8 @@ class Threegtelecoms extends Sms
                     'Msg_Content' => $this->text,
                 ],
             ]);
-
-            $response = json_decode($request->getBody()->getContents(), true);
-
-            if (isset($response['status']) && $response['status'] == 'OK') {
-                $this->response = $response;
+            if ($request->getStatusCode() == 200 ) {
+                $this->response = $request->getBody()->getContents();
                 return true;
             }
             $this->response = $response['error'];
