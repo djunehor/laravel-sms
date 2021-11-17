@@ -9,7 +9,6 @@ use Twilio\Rest\Client;
 
 class Twilio extends Sms
 {
-   private $baseUrl = 'https://rest.twilio.com/sms/';
 
     /**
      * Class Constructor.
@@ -17,14 +16,12 @@ class Twilio extends Sms
      */
     public function __construct($message = null)
     {
-        $this->username = config('laravel-sms.twilio.api_secret');
-        $this->password = config('laravel-sms.twilio.api_key');
+        $this->username = config('laravel-sms.twilio.account_sid');
+        $this->password = config('laravel-sms.twilio.auth_token');
         if ($message) {
             $this->text($message);
         }
-
-        $this->client = self::getInstance();
-        $this->request = new Request('POST', $this->baseUrl.'json');
+        $this->client = new Client($this->username,$this->password );
     }
 
     /**
@@ -39,29 +36,22 @@ class Twilio extends Sms
         }
         try {
 
-            $twilio = new Client($this->username, $this->password);
-
-            $twilio_request = $twilio->messages->create(
-                implode(',', $this->recipients),
-                [
-                    'from' =>  $this->sender ?? config('laravel-sms.sender'),
+            $request = $this->client->messages->create(implode(',', $this->recipients),[
+                    'from' => $this->sender ?? config('laravel-sms.sender'),
                     'body' => $this->text
-                ]
-            );
+            ]);
 
-            if ($twilio_request->accountSid) {
+            if ($request->sid) {
                 $this->response = 'The message was sent successfully';
-
                 return true;
             }
 
-            $this->response = $twilio_request->errorMessage;
-
+            $this->response = $request->errorMessage;
             return false;
+
         } catch (TwilioException $e) {
             logger()->error('SMS Exception in '.__CLASS__.': '.__METHOD__.'=>'.$e->getMessage());
             $this->httpError = $e;
-
             return false;
         }
 
