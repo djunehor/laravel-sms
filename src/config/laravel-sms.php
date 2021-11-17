@@ -54,4 +54,13 @@ return [
         'api_key' => env('MEBO_SMS_API_KEY'),
         'dnd' => env('MEBO_SMS_DND', 0),
     ],
+    'twilio' => [
+        'account_sid' => env('TWILIO_ACCOUNT_SID'),
+        'auth_token' => env('TWILIO_AUTH_TOKEN'),
+    ],
+    'threegtelecoms' => [
+        'client_id' => env('THREEGTELECOMS_CLIENT_ID'),
+        'password' => env('THREEGTELECOMS_PASSWORD'),
+        'sender_id' => env('THREEGTELECOMS_SENDER_ID')
+    ]
 ];

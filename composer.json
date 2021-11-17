@@ -19,7 +19,8 @@
   "minimum-stability": "dev",
     "require": {
         "php": ">=7.1",
-        "guzzlehttp/guzzle": ">=6.5.x-dev"
+        "guzzlehttp/guzzle": ">=6.5.x-dev",
+    "twilio/sdk": "dev-main"
     },
     "require-dev": {
         "orchestra/testbench": ">=3.5.x-dev",

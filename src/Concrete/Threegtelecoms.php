@@ -1,12 +1,13 @@
 <?php
 
 namespace Djunehor\Sms\Concrete;
+
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
 
-class Nexmo extends Sms
+class Threegtelecoms extends Sms
 {
-    private $baseUrl = 'https://rest.nexmo.com/sms/';
+    private $baseUrl = 'http://sms.3gtelecoms.net/api/send.php';
 
     /**
      * Class Constructor.
@@ -14,14 +15,14 @@ class Nexmo extends Sms
      */
     public function __construct($message = null)
     {
-        $this->username = config('laravel-sms.nexmo.api_key');
-        $this->password = config('laravel-sms.nexmo.api_secret');
+        $this->username = config('laravel-sms.threegtelecoms.client_id');
+        $this->password = config('laravel-sms.threegtelecoms.password');
         if ($message) {
             $this->text($message);
         }
 
         $this->client = self::getInstance();
-        $this->request = new Request('POST', $this->baseUrl.'json');
+        $this->request = new Request('GET', $this->baseUrl);
     }
 
     /**
@@ -35,23 +36,19 @@ class Nexmo extends Sms
         }
         try {
             $request = $this->client->send($this->request, [
-                'form_params' => [
-                    'to' => implode(',', $this->recipients),
-                    'from' => $this->sender ?? config('laravel-sms.sender'),
-                    'api_key' => $this->username,
-                    'api_secret' => $this->password,
-                    'text' => $this->text,
+                'query' => [
+                    'ClientID' => $this->username,
+                    'Password' => $this->password,
+                    'SenderID' => $this->sender ?? config('laravel-sms.threegtelecoms.sender_id'),
+                    'MSISDN' => implode(',', $this->recipients),
+                    'Msg_Content' => $this->text,
                 ],
             ]);
-
-            $response = json_decode($request->getBody()->getContents(), true);
-            if ($response['messages'][0]['status'] == 0) {
-                $this->response = $response['messages'][0]['message-id'].':The message was sent successfully';
+            if ($request->getStatusCode() == 200 ) {
+                $this->response = $request->getBody()->getContents();
                 return true;
             }
-
-            $this->response = $response['messages'][0]['error-text'];
-
+            $this->response = $response['error'];
             return false;
         } catch (ClientException $e) {
             logger()->error('HTTP Exception in '.__CLASS__.': '.__METHOD__.'=>'.$e->getMessage());
