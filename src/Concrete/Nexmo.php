@@ -1,7 +1,8 @@
 <?php
 
 namespace Djunehor\Sms\Concrete;
-
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Psr7\Request;
 
 class Nexmo extends Sms
 {
@@ -44,10 +45,8 @@ class Nexmo extends Sms
             ]);
 
             $response = json_decode($request->getBody()->getContents(), true);
-
             if ($response['messages'][0]['status'] == 0) {
-                $this->response = 'The message was sent successfully';
-
+                $this->response = $response['messages'][0]['message-id'].':The message was sent successfully';
                 return true;
             }
 
